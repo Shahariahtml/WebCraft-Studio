@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCraft-Studio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        @keyframes float {
+            0% {transform: translateY(0);}
+            50% {transform: translateY(-20px);}
+            100% {transform: translateY(0);}
+        }
+        
+        @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    .typing {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 4s steps(20, end) infinite;
+    }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a0033, #000000);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            
+        }
+
+        header {
+            padding: 20px 0;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .menu-icon {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu-items {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            
+            border:true;
+            background: rgba(26, 0, 51, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .menu-items a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background 0.3s ease;
+        }
+
+        .menu-items a:hover {
+            background: rgba(166, 77, 255, 0.3);
+        }
+
+        .hero {
+            display: flex;
+            border-radius:0px;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            background: url('background.jpg') center/cover no-repeat;
+            position: relative;
+           
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(166, 77, 255, 0.7);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: float 6s ease-in-out infinite;
+            text-shadow: 0 0 10px #a64dff, 0 0 20px #a64dff, 0 0 30px #a64dff, 0 0 40px #a64dff;
+            
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            color: #000000;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .content {
+            padding: 50px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #a64dff;
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 51, 0.2));
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33.33% - 20px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.5);
+        }
+
+        .portfolio {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .portfolio-item {
+            width: calc(50% - 20px);
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+            
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+            
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(0, 0, 51, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .comment-box {
+            background: rgba(138, 43, 226, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-top: 50px;
+        }
+
+        .comment-box input,
+        .comment-box textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .comment-box input:focus,
+        .comment-box textarea:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .comment-box button {
+            background: linear-gradient(135deg, #a64dff, #6600cc);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .comment-box button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(166, 77, 255, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .service-card, .portfolio-item {
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Logo">
+                WebCraft Studio
+            </a>
+            <button class="menu-icon" id="menuToggle">☰</button>
+            <nav class="menu-items" id="menuItems">
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#request-quote">Contact us</a>
+            </nav>
+        </header>
+
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="floating">welcome there!</h1>
+                <p>Crafting stunning user interfaces with cutting-edge web technologies</p>
+                <a href="#request-quote" class="cta-button">Contact us</a>
+            </div>
+        </div>
+
+        <div id="services" class="content">
+            <h2>Our Services</h2>
+            <div class="services">
+                <div class="service-card floating">
+                    <h3>Responsive Web Design</h3>
+                    <p>Create visually appealing websites that adapt seamlessly to all devices.</p>
+                </div>
+                <div class="service-card floating" style="animation-delay: 1s;">
+                    <h3>UI/UX Development</h3>
+                    <p>Craft intuitive and engaging user interfaces for optimal user experience.</p>
+                </div>
+                <div class="service-card floating" style="animation-delay: 2s;">
+                    <h3>customize your website</h3>
+                    <p>We offer comprehensive customization services, including editing the source code to meet your specific needs.</p>
+                </div>
+                <div class="service-card floating" style="animation-delay: 3s;">
+                    <h3>Performance Optimization</h3>
+                    <p>Enhance website speed and efficiency for a smooth user experience.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="portfolio" class="content">
+            <h2>Our Portfolio</h2>
+            <div class="portfolio">
+                <div class="portfolio-item">
+                    <img src="Recreate Your Website.jpg" alt="Recreate Your Website">
+                    <div class="portfolio-overlay">
+                        <h3>Recreate Your Website</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="E-commerce Front-End.jpg" alt="E-commerce Front-End">
+                    <div class="portfolio-overlay">
+                        <h3>E-commerce Front-End</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="Single Page Application.jpg" alt="Single Page Application">
+                    <div class="portfolio-overlay">
+                        <h3>Single Page Application</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="Interactive UI Design.jpg" alt="Interactive UI Design">
+                    <div class="portfolio-overlay">
+                        <h3>Interactive UI Design</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Why Choose Us?</h2>
+            <p>At WebCraft Studio, we blend creativity with technical expertise to deliver stunning, high-performance user interfaces. Our team of skilled front-end developers and designers work tirelessly to ensure your website not only looks great but also provides an exceptional user experience, helping you stand out in today's competitive online landscape.</p>
+
+            <div id="request-quote" class="comment-box">
+                <h2>Contact us</h2>
+                <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+    
+       
+      <input type="hidden" name="access_key" value="dbf36f00-5696-49cb-abae-61ae931fbd57">
+
+
+    
+                    <input type="text" id="name"  name="name" placeholder="Your Name" required>
+                    <input type="email" id="email"  name="email"placeholder="Your Email" required>
+                    <textarea id="message" name="message" placeholder="Tell us about your project" required></textarea>
+
+      <input type="hidden" name="redirect" value="https://thanks-page-webcraft.vercel.app">
+ 
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 WebCraft Studio. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const parallaxElements = document.querySelectorAll('.hero');
+            window.addEventListener('scroll', function() {
+                for (const element of parallaxElements) {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.5;
+                    element.style.backgroundPositionY = `${rate}px`;
+                }
+            });
+
+            
+            // Menu toggle functionality
+            const menuToggle = document.getElementById('menuToggle');
+            const menuItems = document.getElementById('menuItems');
+
+            menuToggle.addEventListener('click', function() {
+                menuItems.style.display = menuItems.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !menuItems.contains(event.target)) {
+                    menuItems.style.display = 'none';
+                }
+            });
+
+            // Smooth scrolling for all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    menuItems.style.display = 'none'; // Close menu after clicking
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
