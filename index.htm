@@ -493,6 +493,34 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById("installAppBtn");
+
+// Listen for beforeinstallprompt event
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault(); // Prevent auto prompt
+  deferredPrompt = e;
+  installBtn.style.display = "inline-block"; // Show the install button
+});
+
+// Handle button click
+installBtn.addEventListener("click", async () => {
+  installBtn.style.display = "none"; // Hide button once clicked
+  if (deferredPrompt) {
+    deferredPrompt.prompt(); // Show install prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    deferredPrompt = null;
+  }
+});
+
+// Optionally hide button if app already installed
+window.addEventListener("appinstalled", () => {
+  console.log("PWA was installed");
+  installBtn.style.display = "none";
+});
+</script>
 
 <!--End of Tawk.to Script-->
 </body>
